@@ -67,9 +67,11 @@ function wagesEarnedOnDate(workingDate) {
 function allWagesFor() {
     let dates = this.timeInEvents.map(event => event.date);
 
-    let payable = dates.reduce(function(memo, d) {
-        return memo + wagesEarnedOnDate.call(this, d)
-    }.bind(this), 0);
+    let payable = dates.reduce(add, 0);
+
+    let add = function fun(total, wage) {
+        return total + wage;
+    }.bind(this);
 
     return payable;
 }
