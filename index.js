@@ -5,18 +5,40 @@
  that's new and different. That's because we're avoiding a well-known, but
  sneaky bug that we'll cover in the next few lessons!
 
- As a result, the lessons for this function will pass *and* it will be available
- for you to use if you need it!
+ As a result, the lessons for this function will pass *and* it will be available for you to use if you need it!
  */
 
 let allWagesFor = function () {
-    let eligibleDates = this.timeInEvents.map(function (e) {
-        return e.date
-    })
+  let eligibleDates = this.timeInEvents.map(function (e) {
+    return e.date;
+  });
 
-    let payable = eligibleDates.reduce(function (memo, d) {
-        return memo + wagesEarnedOnDate.call(this, d)
-    }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
+  let payable = eligibleDates.reduce(
+    function (memo, d) {
+      return memo + wagesEarnedOnDate.call(this, d);
+    }.bind(this),
+    0
+  ); // <== Hm, why did we need to add bind() there? We'll discuss soon!
 
-    return payable
+  return payable;
+};
+
+class Transaction {
+  constructor(amount, date, memo) {
+    this.amount = amount;
+    this.date = date;
+    this.memo = memo;
+  }
+
+  computeTotal() {
+    return this.#amountTimesTen() + 100;
+  }
+
+  #amountTimesTen() {
+    return this.amount * 10;
+  }
+}
+
+function amountTimesTen(transaction) {
+  return transaction.amount * 10;
 }
